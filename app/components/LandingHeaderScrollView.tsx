@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   IoBedOutline,
   IoChevronBack,
@@ -107,13 +107,34 @@ export default function LandingHeaderScrollView() {
     },
   ];
 
-  const scrollView = document.getElementById("scrollView")!;
-
   const [activeListItem, setActiveListItem] = useState(0);
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollViewWidth, setScrollViewWidth] = useState(0);
+  // const [scrollElement, setScrollElement] = useState<any>(null);
 
-  const scrollRef = useRef(null);
+  let scrollRef: any = useRef(null);
+
+  useEffect(() => {
+    const setScrollDom = () => {
+      if (scrollRef.current !== null) {
+        scrollRef = scrollRef;
+        const { scrollWidth, clientWidth } = scrollRef.current;
+        setScrollViewWidth(scrollWidth - clientWidth);
+      }
+    };
+
+    setScrollDom();
+
+    window.addEventListener("resize", () => {
+      setScrollDom();
+    });
+
+    return () =>
+      window.removeEventListener("resize", () => {
+        setScrollDom();
+      });
+  }, []);
 
   return (
     <section className="my-4">
@@ -122,10 +143,8 @@ export default function LandingHeaderScrollView() {
           id="scrollView"
           ref={scrollRef}
           onScroll={() => {
-            if (scrollRef.current) {
-              const { scrollLeft } = scrollRef.current;
-              setScrollPosition(scrollLeft);
-            }
+            const { scrollLeft } = scrollRef.current;
+            setScrollPosition(Math.abs(scrollLeft));
           }}
           className="flex items-center space-x-10 scroll-smooth overflow-x-auto no-scrollbar"
         >
@@ -162,9 +181,7 @@ export default function LandingHeaderScrollView() {
             <div className="flex h-full items-center pl-6 pr-8 md:pl-10 ">
               <button
                 onClick={() => {
-                  if (scrollRef.current) {
-                    scrollRef.current.scrollLeft -= 300;
-                  }
+                  scrollRef.current.scrollLeft -= 300;
                 }}
                 className="h-8 hover:shadow-sm duration-150 transition-all hover:scale-105 w-8 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
               >
@@ -174,20 +191,20 @@ export default function LandingHeaderScrollView() {
           </div>
         )}
 
-        <div className="absolute bg-gradient-to-l from-white via-white to-transparent bg-opacity-30 right-0 top-0 bottom-0 ">
-          <div className="flex h-full items-center pr-6 pl-8 md:pr-10 ">
-            <button
-              onClick={() => {
-                if (scrollRef.current) {
+        {scrollPosition < scrollViewWidth && (
+          <div className="absolute bg-gradient-to-l from-white via-white to-transparent bg-opacity-30 right-0 top-0 bottom-0 ">
+            <div className="flex h-full items-center pr-6 pl-8 md:pr-10 ">
+              <button
+                onClick={() => {
                   scrollRef.current.scrollLeft += 300;
-                }
-              }}
-              className="h-8 hover:shadow-sm duration-150 transition-all hover:scale-105 w-8 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
-            >
-              <IoChevronForward />
-            </button>
+                }}
+                className="h-8 hover:shadow-sm duration-150 transition-all hover:scale-105 w-8 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
+              >
+                <IoChevronForward />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
