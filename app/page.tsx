@@ -4,7 +4,7 @@ import ListingsBox from "./components/ListingsBox";
 
 export default function Home() {
   return (
-    <header className="max-w-7xl py-4 mx-auto overflow-hidden">
+    <header className="max-w-7xl pb-4 mx-auto overflow-clip">
       <LandingHeaderNavs />
       <LandingHeaderScrollView />
       <ListingsBox />

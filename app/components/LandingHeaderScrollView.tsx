@@ -15,95 +15,95 @@ export default function LandingHeaderScrollView() {
   const scrollList = [
     {
       title: "Rooms",
-      icon: <IoBedOutline size={23} />,
+      icon: <IoBedOutline />,
     },
     {
       title: "New",
-      icon: <IoKeyOutline size={23} />,
+      icon: <IoKeyOutline />,
     },
     {
       title: "Trending",
-      icon: <IoFlameOutline size={23} />,
+      icon: <IoFlameOutline />,
     },
     {
       title: "Lakefront",
-      icon: <IoHomeOutline size={23} />,
+      icon: <IoHomeOutline />,
     },
     {
       title: "Play",
-      icon: <IoFootballOutline size={23} />,
+      icon: <IoFootballOutline />,
     },
     {
       title: "Containers",
-      icon: <IoBedOutline size={23} />,
+      icon: <IoBedOutline />,
     },
     {
       title: "Amazing views",
-      icon: <IoKeyOutline size={23} />,
+      icon: <IoKeyOutline />,
     },
     {
       title: "Castles",
-      icon: <IoFlameOutline size={23} />,
+      icon: <IoFlameOutline />,
     },
     {
       title: "Top cities",
-      icon: <IoHomeOutline size={23} />,
+      icon: <IoHomeOutline />,
     },
     {
       title: "Islands",
-      icon: <IoFootballOutline size={23} />,
+      icon: <IoFootballOutline />,
     },
     {
       title: "Arctic",
-      icon: <IoBedOutline size={23} />,
+      icon: <IoBedOutline />,
     },
     {
       title: "New",
-      icon: <IoKeyOutline size={23} />,
+      icon: <IoKeyOutline />,
     },
     {
       title: "Trending",
-      icon: <IoFlameOutline size={23} />,
+      icon: <IoFlameOutline />,
     },
     {
       title: "Countryside",
-      icon: <IoHomeOutline size={23} />,
+      icon: <IoHomeOutline />,
     },
     {
       title: "Amazing pools",
-      icon: <IoFootballOutline size={23} />,
+      icon: <IoFootballOutline />,
     },
     {
       title: "Farms",
-      icon: <IoFlameOutline size={23} />,
+      icon: <IoFlameOutline />,
     },
     {
       title: "Bed & breakfasts",
-      icon: <IoHomeOutline size={23} />,
+      icon: <IoHomeOutline />,
     },
     {
       title: "Towers",
-      icon: <IoFootballOutline size={23} />,
+      icon: <IoFootballOutline />,
     },
     {
       title: "Treehouses",
-      icon: <IoBedOutline size={23} />,
+      icon: <IoBedOutline />,
     },
     {
       title: "Surfing",
-      icon: <IoKeyOutline size={23} />,
+      icon: <IoKeyOutline />,
     },
     {
       title: "Beach",
-      icon: <IoFlameOutline size={23} />,
+      icon: <IoFlameOutline />,
     },
     {
       title: "Chefs kitchen",
-      icon: <IoHomeOutline size={23} />,
+      icon: <IoHomeOutline />,
     },
     {
       title: "Caves",
-      icon: <IoFootballOutline size={23} />,
+      icon: <IoFootballOutline />,
     },
   ];
 
@@ -137,16 +137,15 @@ export default function LandingHeaderScrollView() {
   }, []);
 
   return (
-    <section className="my-4">
-      <div className="relative  px-6 md:px-10">
+    <section className="my-4 sticky top-0 z-20 bg-white shadow-sm">
+      <div className="relative py-2 px-2 md:px-6 lg:px-8">
         <ul
-          id="scrollView"
           ref={scrollRef}
           onScroll={() => {
             const { scrollLeft } = scrollRef.current;
             setScrollPosition(Math.abs(scrollLeft));
           }}
-          className="flex items-center space-x-10 scroll-smooth overflow-x-auto no-scrollbar"
+          className="flex items-center space-x-4 md:space-x-10 scroll-smooth overflow-x-auto no-scrollbar"
         >
           {scrollList.map((list, index) => {
             return (
@@ -160,13 +159,13 @@ export default function LandingHeaderScrollView() {
               >
                 <button
                   onClick={() => setActiveListItem(index)}
-                  className={`space-y-2 ${
+                  className={`space-y-1 md:space-y-2 ${
                     index == activeListItem
                       ? "border-palette-hof"
                       : " border-transparent hover:border-palette-deco"
                   } flex border-b-2 flex-col items-center border-palette-hof transition-all duration-150`}
                 >
-                  {list.icon}
+                  <span className="text-base md:text-lg">{list.icon}</span>
                   <span className="font-medium pb-2 text-xs whitespace-nowrap">
                     {list.title}
                   </span>
@@ -178,12 +177,12 @@ export default function LandingHeaderScrollView() {
 
         {scrollPosition != 0 && (
           <div className="absolute bg-gradient-to-r from-white via-white to-transparent bg-opacity-30 left-0 top-0 bottom-0 ">
-            <div className="flex h-full items-center pl-6 pr-8 md:pl-10 ">
+            <div className="flex h-full items-center pl-2 md:pl-6 lg:pl-8 pr-2">
               <button
                 onClick={() => {
                   scrollRef.current.scrollLeft -= 300;
                 }}
-                className="h-8 hover:shadow-sm duration-150 transition-all hover:scale-105 w-8 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
+                className="md:h-8 h-6 w-6 md:w-8 hover:shadow-sm duration-150 transition-all hover:scale-105 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
               >
                 <IoChevronBack />
               </button>
@@ -193,12 +192,12 @@ export default function LandingHeaderScrollView() {
 
         {scrollPosition < scrollViewWidth && (
           <div className="absolute bg-gradient-to-l from-white via-white to-transparent bg-opacity-30 right-0 top-0 bottom-0 ">
-            <div className="flex h-full items-center pr-6 pl-8 md:pr-10 ">
+            <div className="flex h-full items-center pl-2 pr-2 md:pr-6 lg:pr-8 ">
               <button
                 onClick={() => {
                   scrollRef.current.scrollLeft += 300;
                 }}
-                className="h-8 hover:shadow-sm duration-150 transition-all hover:scale-105 w-8 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
+                className="md:h-8 h-6 w-6 md:w-8 hover:shadow-sm duration-150 transition-all hover:scale-105  rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
               >
                 <IoChevronForward />
               </button>

@@ -15,7 +15,12 @@ export const listings: Array<Listing> = [
   {
     listingCity: "seserit",
     listingCountry: "indonesia",
-    listingImages: ["/assets/houseImg-unsplash.jpg"],
+    listingImages: [
+      "/assets/houseImg-unsplash.jpg",
+      "/assets/houseImg3-unsplash.jpg",
+      "/assets/houseImg2-unsplash.jpg",
+      "/assets/houseImg1-unsplash.jpg",
+    ],
     rating: 4.85,
     rentalDate: "Nov 23 - 28",
     amountPerNight: 136,
@@ -34,7 +39,11 @@ export const listings: Array<Listing> = [
     listingCity: "trenton",
     listingState: "georgia",
     listingCountry: "US",
-    listingImages: ["/assets/houseImg2-unsplash.jpg"],
+    listingImages: [
+      "/assets/houseImg2-unsplash.jpg",
+      "/assets/houseImg5-unsplash.jpg",
+      "/assets/houseImg4-unsplash.jpg",
+    ],
     rating: 4.97,
     rentalDate: "Aug 6 - 7",
     amountPerNight: 415,
@@ -52,7 +61,10 @@ export const listings: Array<Listing> = [
   {
     listingCity: "seserit",
     listingCountry: "indonesia",
-    listingImages: ["/assets/houseImg5-unsplash.jpg"],
+    listingImages: [
+      "/assets/houseImg5-unsplash.jpg",
+      "/assets/houseImg4-unsplash.jpg",
+    ],
     rating: 4.85,
     rentalDate: "Nov 23 - 28",
     amountPerNight: 136,
