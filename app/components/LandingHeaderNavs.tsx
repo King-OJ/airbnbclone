@@ -6,8 +6,8 @@ import HeaderReservationBox from "./HeaderReservationBox";
 
 export default function LandingHeaderNavs() {
   return (
-    <nav className="min-h-20 w-full border-b pb-6 hidden md:block">
-      <div className="grid grid-flow-col items-center mb-4 px-6 md:px-10">
+    <nav className="min-h-20 w-full border-b px-2 xs:px-4 sm:px-6 md:px-10 py-6 hidden md:block">
+      <div className="grid grid-flow-col items-center mb-4">
         <Link href="/">
           <Image
             className="w-auto h-auto"

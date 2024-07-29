@@ -138,14 +138,14 @@ export default function LandingHeaderScrollView() {
 
   return (
     <section className="my-4 sticky top-0 z-20 bg-white shadow-sm">
-      <div className="relative py-2 px-2 md:px-6 lg:px-8">
+      <div className="relative py-2 px-2 xs:px-4 sm:px-6 md:px-10">
         <ul
           ref={scrollRef}
           onScroll={() => {
             const { scrollLeft } = scrollRef.current;
             setScrollPosition(Math.abs(scrollLeft));
           }}
-          className="flex items-center space-x-4 md:space-x-10 scroll-smooth overflow-x-auto no-scrollbar"
+          className="flex items-center space-x-6 md:space-x-10 scroll-smooth overflow-x-auto no-scrollbar"
         >
           {scrollList.map((list, index) => {
             return (
@@ -177,7 +177,7 @@ export default function LandingHeaderScrollView() {
 
         {scrollPosition != 0 && (
           <div className="absolute bg-gradient-to-r from-white via-white to-transparent bg-opacity-30 left-0 top-0 bottom-0 ">
-            <div className="flex h-full items-center pl-2 md:pl-6 lg:pl-8 pr-2">
+            <div className="flex h-full items-center pl-2 sm:pl-6 md:pl-10 xs:pl-4 pr-4 sm:pr-6">
               <button
                 onClick={() => {
                   scrollRef.current.scrollLeft -= 300;
@@ -192,7 +192,7 @@ export default function LandingHeaderScrollView() {
 
         {scrollPosition < scrollViewWidth && (
           <div className="absolute bg-gradient-to-l from-white via-white to-transparent bg-opacity-30 right-0 top-0 bottom-0 ">
-            <div className="flex h-full items-center pl-2 pr-2 md:pr-6 lg:pr-8 ">
+            <div className="flex h-full items-center pl-4 sm:pl-6 pr-2 xs:pr-4 sm:pr-6 md:pr-10 ">
               <button
                 onClick={() => {
                   scrollRef.current.scrollLeft += 300;

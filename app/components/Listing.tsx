@@ -1,9 +1,19 @@
 "use client";
 import Image from "next/image";
-import { IoChevronBack, IoChevronForward, IoStarSharp } from "react-icons/io5";
+import {
+  IoChevronBack,
+  IoChevronForward,
+  IoHeart,
+  IoHeartOutline,
+  IoStarSharp,
+} from "react-icons/io5";
 import Link from "next/link";
 import type { ListingType } from "../utils/mock-data";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { LuHeart } from "react-icons/lu";
 
 interface ListingProps {
   listing: ListingType;
@@ -35,6 +45,24 @@ export default function Listing({ listing }: ListingProps) {
   const [imgScrollEnd, setImgScrollEnd] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
 
+  let observer = null;
+  if (typeof window !== "undefined") {
+    observer = new IntersectionObserver(
+      (entries) => {
+        // find the entry with the largest intersection ratio
+        entries.forEach((entry, index) => {
+          if (entry.intersectionRatio > 0) {
+            setActiveSlide(index);
+          }
+        });
+      },
+      {
+        root: imgScrollRef.current,
+        threshold: 0.5,
+      }
+    );
+  }
+
   useEffect(() => {
     if (imgScrollRef.current !== null) {
       imgScrollRef = imgScrollRef;
@@ -43,25 +71,10 @@ export default function Listing({ listing }: ListingProps) {
     }
   }, []);
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      // find the entry with the largest intersection ratio
-      entries.forEach((entry, index) => {
-        if (entry.intersectionRatio > 0) {
-          setActiveSlide(index);
-        }
-      });
-    },
-    {
-      root: imgScrollRef.current,
-      threshold: 0.5,
-    }
-  );
-
   return (
-    <li className="space-y-2 group">
+    <li className="space-y-1 lg:space-y-2 group">
       <Link href="/" className="block w-full space-y-2">
-        <div className="relative w-full h-[350px] xl:h-[260px] overflow-hidden rounded-md md:rounded-lg">
+        <div className="relative w-full h-[320px] xs:h-[h-290px] md:h-[270px] lg:h-[260px] overflow-hidden rounded-md sm:rounded-xl">
           <div
             ref={imgScrollRef}
             className={`w-full h-full ${
@@ -74,7 +87,7 @@ export default function Listing({ listing }: ListingProps) {
 
               Array.from(imgScrollRef.current.children).forEach(
                 (element: any) => {
-                  observer.observe(element);
+                  observer?.observe(element);
                 }
               );
             }}
@@ -148,9 +161,24 @@ export default function Listing({ listing }: ListingProps) {
               </div>
             </>
           )}
+
+          <div className="absolute top-0 w-full">
+            <div className="grid grid-flow-col pt-2 justify-items-stretch px-2">
+              <div className="justify-self-start">
+                <button className="text-xs md:text-sm shadow-md text-palette-hof font-medium rounded-full px-2 md:px-3 py-[3px] md:py-1 bg-palette-faint">
+                  Guest favourite
+                </button>
+              </div>
+              <div className="justify-self-end">
+                <button className="text-xl md:text-2xl">
+                  <LuHeart className="hover:scale-105 transition stroke-[1px] fill-heart-fill-color duration-150 stroke-white" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="text-[12px] md:text-[15px]">
+        <div className="text-[12px] md:text-[13px] lg:text-[15px]">
           <div className="flex items-center text-palette-hof justify-between">
             <h6 className="font-medium">
               {listingCity && (
@@ -169,14 +197,14 @@ export default function Listing({ listing }: ListingProps) {
             </div>
           </div>
 
-          <div className="text-[12px] md:md:text-[15px] mt-1 font-light leading-5">
+          <div className="text-[12px] md:text-[13px] lg:text-[14px] mt-[2px] lg:mt-1 font-light leading-5">
             <p>Viewed {viewsCount} times last week</p>
             <p>{rentalDate}</p>
           </div>
         </div>
       </Link>
 
-      <div className="flex items-center text-palette-hof text-[14px]">
+      <div className="flex items-center text-palette-hof text-[12px] md:text-[13px] lg:text-[14px]">
         <span className="font-medium">{formatPrice(amountPerNight)}</span>
         <span className="font-normal ml-1">night</span>
       </div>

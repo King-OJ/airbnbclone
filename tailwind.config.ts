@@ -22,8 +22,28 @@ const config: Config = {
         "palette-bobo": "#B0B0B0",
         "palette-deco": "#DDDDDD",
         "palette-bebe": "#EBEBEB",
+        "palette-faint": "#F7F7F7",
         "brand-color": "#FF385C",
+        "heart-fill-color": "rgba(0, 0, 0, 0.5)",
       },
+    },
+    screens: {
+      xs: "400px",
+
+      sm: "550px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "950px",
+      // => @media (min-width: 768px) { ... }
+
+      lg: "1128px",
+      // => @media (min-width: 1024px) { ... }
+
+      xl: "1300px",
+      // => @media (min-width: 1280px) { ... }
+
+      "2xl": "1536px",
+      // => @media (min-width: 1536px) { ... }
     },
   },
   plugins: [],
