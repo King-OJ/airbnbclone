@@ -4,7 +4,13 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
-export default function HeaderReservationBox() {
+interface HeaderReservationBoxProps {
+  reservationOption: number;
+}
+
+export default function HeaderReservationBox({
+  reservationOption,
+}: HeaderReservationBoxProps) {
   const [searchText, setSearchText] = useState("");
   const [formHasFocus, setFormHasFocus] = useState(false);
   const [focusedField, setFocusedField] = useState<Fields | null>(null);
@@ -14,6 +20,7 @@ export default function HeaderReservationBox() {
     checkIn,
     checkOut,
     who,
+    date,
   }
 
   return (
@@ -26,11 +33,11 @@ export default function HeaderReservationBox() {
       }}
       action=""
       id="reservationBox"
-      className={`max-w-4xl ${
+      className={`max-w-[850px] ${
         formHasFocus
           ? "bg-palette-bebe bg-opacity-60"
           : "bg-transparent bg-opacity-100"
-      } h-16 mx-auto border rounded-full shadow-md transition-all duration-150 gap-2 grid grid-flow-col grid-cols-3 overflow-hidden`}
+      } h-[62px] mx-auto border rounded-full shadow-md transition-all duration-150 gap-2 grid grid-flow-col grid-cols-3 overflow-hidden`}
     >
       <label
         onClick={() => setFocusedField(Fields.where)}
@@ -66,46 +73,76 @@ export default function HeaderReservationBox() {
         </div>
       </label>
 
-      <div className="grid grid-flow-col grid-cols-2 gap-2 h-full">
-        <div
-          onClick={() => setFocusedField(Fields.checkIn)}
-          className={`hover:cursor-pointer  ${
-            focusedField == Fields.checkIn
-              ? "bg-white shadow-md"
-              : "bg-transparent"
-          } flex justify-center h-full ${
-            focusedField == Fields.checkIn ? "" : "hover:bg-palette-bebe"
-          } items-center rounded-full transition-all duration-150`}
-        >
-          <div className="space-y-[1px]">
-            <span className="text-palette-hof block text-xs text-left font-medium">
-              Check in
-            </span>
-            <span className="block text-sm text-left font-light">
-              Add dates
-            </span>
+      <div
+        className={`${
+          reservationOption == 0
+            ? "grid-flow-col grid-cols-2 gap-2"
+            : "grid-cols-1"
+        } h-full grid`}
+      >
+        {reservationOption == 0 ? (
+          <>
+            <div
+              onClick={() => setFocusedField(Fields.checkIn)}
+              className={`hover:cursor-pointer  ${
+                focusedField == Fields.checkIn
+                  ? "bg-white shadow-md"
+                  : "bg-transparent"
+              } flex justify-center h-full ${
+                focusedField == Fields.checkIn ? "" : "hover:bg-palette-bebe"
+              } items-center rounded-full transition-all duration-150`}
+            >
+              <div className="space-y-[1px]">
+                <span className="text-palette-hof block text-xs text-left font-medium">
+                  Check in
+                </span>
+                <span className="block text-sm text-left font-light">
+                  Add dates
+                </span>
+              </div>
+            </div>
+            <div
+              onClick={() => setFocusedField(Fields.checkOut)}
+              className={`hover:cursor-pointer  ${
+                focusedField == Fields.checkOut
+                  ? "bg-white shadow-md"
+                  : "bg-transparent"
+              } flex justify-center h-full
+            ${
+              focusedField == Fields.checkOut ? "" : "hover:bg-palette-bebe"
+            } items-center rounded-full transition-all duration-150`}
+            >
+              <div className="space-y-[1px]">
+                <span className="text-palette-hof block text-xs text-left font-medium">
+                  Check out
+                </span>
+                <span className="block text-sm text-left font-light">
+                  Add dates
+                </span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div
+            onClick={() => {
+              setFocusedField(Fields.date);
+            }}
+            className={`hover:cursor-pointer ${
+              focusedField == Fields.date
+                ? "bg-white shadow-md"
+                : "bg-transparent"
+            } flex items-center justify-between rounded-full w-full h-full
+         ${focusedField == Fields.date ? "" : "hover:bg-palette-bebe"}
+          pl-8 pr-2 transition-all duration-150`}
+          >
+            <div className="space-y-[1px]">
+              <span className="block text-xs font-medium text-palette-hof">
+                Date
+              </span>
+              <span className="block text-sm font-light">Add dates</span>
+            </div>
           </div>
-        </div>
-        <div
-          onClick={() => setFocusedField(Fields.checkOut)}
-          className={`hover:cursor-pointer  ${
-            focusedField == Fields.checkOut
-              ? "bg-white shadow-md"
-              : "bg-transparent"
-          } flex justify-center h-full
-           ${
-             focusedField == Fields.checkOut ? "" : "hover:bg-palette-bebe"
-           } items-center rounded-full transition-all duration-150`}
-        >
-          <div className="space-y-[1px]">
-            <span className="text-palette-hof block text-xs text-left font-medium">
-              Check out
-            </span>
-            <span className="block text-sm text-left font-light">
-              Add dates
-            </span>
-          </div>
-        </div>
+        )}
       </div>
 
       <div

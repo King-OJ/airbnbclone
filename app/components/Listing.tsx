@@ -1,18 +1,10 @@
 "use client";
 import Image from "next/image";
-import {
-  IoChevronBack,
-  IoChevronForward,
-  IoHeart,
-  IoHeartOutline,
-  IoStarSharp,
-} from "react-icons/io5";
+import { IoChevronBack, IoChevronForward, IoStarSharp } from "react-icons/io5";
 import Link from "next/link";
 import type { ListingType } from "../utils/mock-data";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { useEffect, useRef, useState } from "react";
+
 import { LuHeart } from "react-icons/lu";
 
 interface ListingProps {
@@ -74,7 +66,7 @@ export default function Listing({ listing }: ListingProps) {
   return (
     <li className="space-y-1 lg:space-y-2 group">
       <Link href="/" className="block w-full space-y-2">
-        <div className="relative w-full h-[320px] xs:h-[h-290px] md:h-[270px] lg:h-[260px] overflow-hidden rounded-md sm:rounded-xl">
+        <div className="relative w-full h-[320px] xs:h-[290px] sm:h-[320px] md:h-[280px] lg:h-[260px] overflow-hidden rounded-md sm:rounded-xl">
           <div
             ref={imgScrollRef}
             className={`w-full h-full ${

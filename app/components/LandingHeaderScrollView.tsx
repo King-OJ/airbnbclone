@@ -111,7 +111,7 @@ export default function LandingHeaderScrollView() {
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
-  // const [scrollElement, setScrollElement] = useState<any>(null);
+  const [showOverflowControls, setShowOverflowControls] = useState(false);
 
   let scrollRef: any = useRef(null);
 
@@ -121,24 +121,24 @@ export default function LandingHeaderScrollView() {
         scrollRef = scrollRef;
         const { scrollWidth, clientWidth } = scrollRef.current;
         setScrollViewWidth(scrollWidth - clientWidth);
+        if (clientWidth < scrollWidth) {
+          setShowOverflowControls(true);
+        } else {
+          setShowOverflowControls(false);
+        }
       }
     };
 
     setScrollDom();
 
-    window.addEventListener("resize", () => {
-      setScrollDom();
-    });
+    window.addEventListener("resize", setScrollDom);
 
-    return () =>
-      window.removeEventListener("resize", () => {
-        setScrollDom();
-      });
+    return () => window.removeEventListener("resize", setScrollDom);
   }, []);
 
   return (
-    <section className="my-4 sticky top-0 z-20 bg-white shadow-sm">
-      <div className="relative py-2 px-2 xs:px-4 sm:px-6 md:px-10">
+    <section className="my-4 shadow-sm">
+      <div className="relative px-2 xs:px-4 sm:px-6 md:px-10">
         <ul
           ref={scrollRef}
           onScroll={() => {
@@ -165,7 +165,7 @@ export default function LandingHeaderScrollView() {
                       : " border-transparent hover:border-palette-deco"
                   } flex border-b-2 flex-col items-center border-palette-hof transition-all duration-150`}
                 >
-                  <span className="text-base md:text-lg">{list.icon}</span>
+                  <span className="text-base md:text-xl">{list.icon}</span>
                   <span className="font-medium pb-2 text-xs whitespace-nowrap">
                     {list.title}
                   </span>
@@ -175,12 +175,13 @@ export default function LandingHeaderScrollView() {
           })}
         </ul>
 
-        {scrollPosition != 0 && (
+        {showOverflowControls && scrollPosition != 0 && (
           <div className="absolute bg-gradient-to-r from-white via-white to-transparent bg-opacity-30 left-0 top-0 bottom-0 ">
             <div className="flex h-full items-center pl-2 sm:pl-6 md:pl-10 xs:pl-4 pr-4 sm:pr-6">
               <button
                 onClick={() => {
-                  scrollRef.current.scrollLeft -= 300;
+                  scrollRef.current.scrollLeft -=
+                    (scrollRef.current.scrollWidth / scrollList.length) * 2;
                 }}
                 className="md:h-8 h-6 w-6 md:w-8 hover:shadow-sm duration-150 transition-all hover:scale-105 rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
               >
@@ -190,12 +191,13 @@ export default function LandingHeaderScrollView() {
           </div>
         )}
 
-        {scrollPosition < scrollViewWidth && (
+        {showOverflowControls && scrollPosition < scrollViewWidth && (
           <div className="absolute bg-gradient-to-l from-white via-white to-transparent bg-opacity-30 right-0 top-0 bottom-0 ">
             <div className="flex h-full items-center pl-4 sm:pl-6 pr-2 xs:pr-4 sm:pr-6 md:pr-10 ">
               <button
                 onClick={() => {
-                  scrollRef.current.scrollLeft += 300;
+                  scrollRef.current.scrollLeft +=
+                    (scrollRef.current.scrollWidth / scrollList.length) * 2;
                 }}
                 className="md:h-8 h-6 w-6 md:w-8 hover:shadow-sm duration-150 transition-all hover:scale-105  rounded-full grid place-content-center text-palette-hof border-[0.8px] bg-white border-palette-bobo"
               >
